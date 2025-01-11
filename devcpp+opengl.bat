@@ -1,9 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo === Be Patient ===
-echo.
-
 :: Define the download URLs
 set DOWNLOAD_URLS[0]=https://onlynotes.tk/DevCpp.zip
 set DOWNLOAD_URLS[2]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.dll
@@ -24,6 +21,9 @@ for /l %%i in (0, 1, 7) do (
     set URL=!DOWNLOAD_URLS[%%i]!
     for %%j in (!URL!) do (
         set FILE_NAME=%%~nj%%~xj
+        echo === Be Patient ===
+        echo.
+
 
         :: Use curl to download the file, redirecting output to nul to hide progress
         "%CURL_PATH%" -L !URL! -o "%DOWNLOAD_DIR%\!FILE_NAME!" > nul 2>&1
