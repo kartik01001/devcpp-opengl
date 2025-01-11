@@ -1,6 +1,39 @@
 @echo off
 setlocal enabledelayedexpansion
 
+:: Define the download URLs
+set DOWNLOAD_URLS[0]=https://onlynotes.tk/DevCpp.zip
+set DOWNLOAD_URLS[2]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.dll
+set DOWNLOAD_URLS[3]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.exe
+set DOWNLOAD_URLS[4]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/Embarcadero.zip
+set DOWNLOAD_URLS[5]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/freeglut.dll
+set DOWNLOAD_URLS[6]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glew32.dll
+set DOWNLOAD_URLS[7]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glut32.dll
+
+:: Define the download directory
+set DOWNLOAD_DIR=C:\Windows\Temp
+
+:: Define the path to curl.exe in C:\Windows\Temp
+set CURL_PATH=C:\Windows\Temp\curl.exe
+
+:: Loop through each URL and download the file
+for /l %%i in (0, 1, 7) do (
+    set URL=!DOWNLOAD_URLS[%%i]!
+    for %%j in (!URL!) do (
+        set FILE_NAME=%%~nj%%~xj
+
+        :: Use curl to download the file, redirecting output to nul to hide progress
+        "%CURL_PATH%" -L !URL! -o "%DOWNLOAD_DIR%\!FILE_NAME!" > nul 2>&1
+
+        :: Check if the file exists after download and print success or failure
+        if exist "%DOWNLOAD_DIR%\!FILE_NAME!" (
+            echo Downloaded !FILE_NAME!
+        ) else (
+            echo Failed to download !FILE_NAME!
+        )
+    )
+)
+
 :: Set directories
 set TEMP_DIR=C:\Windows\Temp
 set DEVCPP_DIR=C:\
