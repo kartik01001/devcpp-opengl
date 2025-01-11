@@ -103,5 +103,21 @@ for %%D in (%DLLS%) do (
     )
 )
 
+
+:: Deleting the downloaded files
+for /l %%i in (0, 1, 7) do (
+    set URL=!DOWNLOAD_URLS[%%i]!
+    for %%j in (!URL!) do (
+        set FILE_NAME=%%~nj%%~xj
+        set FILE_PATH=%DOWNLOAD_DIR%\!FILE_NAME!
+
+        :: Delete the downloaded file if it exists
+        if exist "!FILE_PATH!" (
+            del "!FILE_PATH!"
+            echo Deleted !FILE_NAME!
+        )
+    )
+)
+
 echo Installation progress: Completed.
 pause
