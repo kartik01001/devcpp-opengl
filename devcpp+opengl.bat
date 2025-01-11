@@ -1,6 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
 
+echo === Be Patient ===
+echo
+
 :: Define the download URLs
 set DOWNLOAD_URLS[0]=https://onlynotes.tk/DevCpp.zip
 set DOWNLOAD_URLS[2]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.dll
@@ -119,5 +122,6 @@ for /l %%i in (0, 1, 7) do (
 
 :: delete the batch script itself after running
 del "%~f0"
+echo
 echo Installation progress: Completed.
 pause
