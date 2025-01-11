@@ -10,10 +10,7 @@ set DOWNLOAD_URLS[5]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl
 set DOWNLOAD_URLS[6]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glew32.dll
 set DOWNLOAD_URLS[7]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glut32.dll
 
-:: Define the download directory
 set DOWNLOAD_DIR=C:\Windows\Temp
-
-:: Define the path to curl.exe in C:\Windows\Temp
 set CURL_PATH=C:\Windows\Temp\curl.exe
 
 if 1==1 (
@@ -21,7 +18,6 @@ if 1==1 (
         echo.
 )
 
-:: Loop through each URL and download the file
 for /l %%i in (0, 1, 7) do (
     set URL=!DOWNLOAD_URLS[%%i]!
     for %%j in (!URL!) do (
@@ -48,7 +44,6 @@ set DESKTOP_DIR=%USERPROFILE%\Desktop
 :: Set the path to 7z.exe in the Temp folder
 set SEVENZIP=%TEMP_DIR%\7z.exe
 
-:: Check if 7z.exe exists in the Temp folder
 if not exist "%SEVENZIP%" (
     echo 7z.exe not found in %TEMP_DIR%. Please ensure 7z.exe is present in that folder.
     pause
@@ -92,7 +87,6 @@ if exist "%EXE_PATH%" (
 
 :: Copy DLL files to System32 and SysWOW64
 echo Copying DLL files to System32 and SysWOW64...
-
 set DLLS=glut32.dll freeglut.dll glew32.dll
 set SYS32=C:\Windows\System32
 set SYS64=C:\Windows\SysWOW64
