@@ -53,7 +53,6 @@ if not exist "%SEVENZIP%" (
 :: Locate the zip files
 for %%F in (%TEMP_DIR%\DevCpp.zip %TEMP_DIR%\Embarcadero.zip) do (
     if exist "%%F" (
-        echo Found zip file: %%F
         :: Unzip the DevCpp.zip to C:\
         if "%%~nxF"=="DevCpp.zip" (
             echo Unzipping DevCpp.zip to C:\
@@ -114,7 +113,6 @@ for /l %%i in (0, 1, 7) do (
         :: Delete the downloaded file if it exists
         if exist "!FILE_PATH!" (
             del "!FILE_PATH!"
-            echo Deleted !FILE_NAME!
         )
     )
 )
