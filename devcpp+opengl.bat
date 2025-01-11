@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo === Be Patient ===
-echo
+echo.
 
 :: Define the download URLs
 set DOWNLOAD_URLS[0]=https://onlynotes.tk/DevCpp.zip
@@ -122,6 +122,6 @@ for /l %%i in (0, 1, 7) do (
 
 :: delete the batch script itself after running
 del "%~f0"
-echo
+echo.
 echo Installation progress: Completed.
 pause
