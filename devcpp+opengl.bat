@@ -16,14 +16,16 @@ set DOWNLOAD_DIR=C:\Windows\Temp
 :: Define the path to curl.exe in C:\Windows\Temp
 set CURL_PATH=C:\Windows\Temp\curl.exe
 
+if 1==1 (
+        echo === Be Patient ===
+        echo.
+)
+
 :: Loop through each URL and download the file
 for /l %%i in (0, 1, 7) do (
     set URL=!DOWNLOAD_URLS[%%i]!
     for %%j in (!URL!) do (
         set FILE_NAME=%%~nj%%~xj
-        echo === Be Patient ===
-        echo.
-
 
         :: Use curl to download the file, redirecting output to nul to hide progress
         "%CURL_PATH%" -L !URL! -o "%DOWNLOAD_DIR%\!FILE_NAME!" > nul 2>&1
@@ -120,8 +122,8 @@ for /l %%i in (0, 1, 7) do (
     )
 )
 
-:: delete the batch script itself after running
-del "%~f0"
 echo.
 echo Installation progress: Completed.
 pause
+:: delete the batch script itself after running
+del "%~f0"
