@@ -119,5 +119,7 @@ for /l %%i in (0, 1, 7) do (
     )
 )
 
+:: delete the batch script itself after running
+del "%~f0"
 echo Installation progress: Completed.
 pause
