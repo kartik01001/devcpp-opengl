@@ -22,9 +22,7 @@ for /l %%i in (0, 1, 7) do (
     set URL=!DOWNLOAD_URLS[%%i]!
     for %%j in (!URL!) do (
         set FILE_NAME=%%~nj%%~xj
-
-        :: Use curl to download the file, redirecting output to nul to hide progress
-        "%CURL_PATH%" -L !URL! -o "%DOWNLOAD_DIR%\!FILE_NAME!" > nul 2>&1
+        "%CURL_PATH%" -L !URL! -o "%DOWNLOAD_DIR%\!FILE_NAME!"
 
         :: Check if the file exists after download and print success or failure
         if exist "%DOWNLOAD_DIR%\!FILE_NAME!" (
