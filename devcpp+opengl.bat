@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: Define the download URLs
-set DOWNLOAD_URLS[0]=https://onlynotes.tk/DevCpp.zip
+set DOWNLOAD_URLS[0]=https://drive.usercontent.google.com/download?id=16PkVHdBSIrYGqEL9nTBaOUTaSQy5tC3Y&confirm=xxx?\DevCpp.zip
 set DOWNLOAD_URLS[2]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.dll
 set DOWNLOAD_URLS[3]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.exe
 set DOWNLOAD_URLS[4]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/Embarcadero.zip
