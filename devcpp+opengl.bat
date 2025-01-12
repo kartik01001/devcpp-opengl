@@ -22,18 +22,14 @@ if 1==1 (
 for /l %%i in (0, 1, 6) do (
     set URL=!DOWNLOAD_URLS_%%i!
     
-    :: Handle file name extraction based on URL
     if %%i==0 (
-        :: Special handling for the first URL (for DevCpp.zip)
         set FILE_NAME=DevCpp.zip
     ) else (
-        :: Extract the file name from the URL (get the last part after the last slash)
         for %%j in ("!URL!") do (
             set FILE_NAME=%%~nxj
         )
     )
     
-    :: Perform the download (quote the URL to handle special characters)
     "%CURL_PATH%" -L "!URL!" -o "%TEMP_DIR%\!FILE_NAME!"
     
     :: Check if the file exists after download and print success or failure
@@ -49,8 +45,6 @@ for /l %%i in (0, 1, 6) do (
 set DEVCPP_DIR=C:\
 set EMBARCADERO_DIR=%APPDATA%
 set DESKTOP_DIR=%USERPROFILE%\Desktop
-
-:: Set the path to 7z.exe in the Temp folder
 set SEVENZIP=%TEMP_DIR%\7z.exe
 
 if not exist "%SEVENZIP%" (
