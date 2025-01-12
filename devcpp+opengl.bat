@@ -2,15 +2,15 @@
 setlocal enabledelayedexpansion
 
 :: Define the download URLs
-set DOWNLOAD_URLS[0]="https://drive.usercontent.google.com/download?id=16PkVHdBSIrYGqEL9nTBaOUTaSQy5tC3Y&export=download&confirm=t?\DevCpp.zip"
-set DOWNLOAD_URLS[2]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.dll
-set DOWNLOAD_URLS[3]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.exe
-set DOWNLOAD_URLS[4]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/Embarcadero.zip
-set DOWNLOAD_URLS[5]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/freeglut.dll
-set DOWNLOAD_URLS[6]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glew32.dll
-set DOWNLOAD_URLS[7]=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glut32.dll
+set DOWNLOAD_URLS_0="https://drive.usercontent.google.com/download?id=16PkVHdBSIrYGqEL9nTBaOUTaSQy5tC3Y&export=download&confirm=t?\DevCpp.zip"
+set DOWNLOAD_URLS_1=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.dll
+set DOWNLOAD_URLS_2=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/7z.exe
+set DOWNLOAD_URLS_3=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/Embarcadero.zip
+set DOWNLOAD_URLS_4=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/freeglut.dll
+set DOWNLOAD_URLS_5=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glew32.dll
+set DOWNLOAD_URLS_6=https://raw.githubusercontent.com/kartik01001/devcpp-opengl/main/glut32.dll
 
-set DOWNLOAD_DIR=C:\Windows\Temp
+set TEMP_DIR=C:\Windows\Temp
 set CURL_PATH=C:\Windows\Temp\curl.exe
 
 if 1==1 (
@@ -18,23 +18,34 @@ if 1==1 (
         echo.
 )
 
-for /l %%i in (0, 1, 7) do (
-    set URL=!DOWNLOAD_URLS[%%i]!
-    for %%j in (!URL!) do (
-        set FILE_NAME=%%~nj%%~xj
-        "%CURL_PATH%" -L !URL! -o "%DOWNLOAD_DIR%\!FILE_NAME!"
-
-        :: Check if the file exists after download and print success or failure
-        if exist "%DOWNLOAD_DIR%\!FILE_NAME!" (
-            echo Downloaded !FILE_NAME!
-        ) else (
-            echo Failed to download !FILE_NAME!
+:: Loop through download URLs
+for /l %%i in (0, 1, 6) do (
+    set URL=!DOWNLOAD_URLS_%%i!
+    
+    :: Handle file name extraction based on URL
+    if %%i==0 (
+        :: Special handling for the first URL (for DevCpp.zip)
+        set FILE_NAME=DevCpp.zip
+    ) else (
+        :: Extract the file name from the URL (get the last part after the last slash)
+        for %%j in ("!URL!") do (
+            set FILE_NAME=%%~nxj
         )
+    )
+    
+    :: Perform the download (quote the URL to handle special characters)
+    "%CURL_PATH%" -L "!URL!" -o "%TEMP_DIR%\!FILE_NAME!"
+    
+    :: Check if the file exists after download and print success or failure
+    if exist "%TEMP_DIR%\!FILE_NAME!" (
+        echo Downloaded !FILE_NAME!
+    ) else (
+        echo Failed to download !FILE_NAME!
     )
 )
 
+
 :: Set directories
-set TEMP_DIR=C:\Windows\Temp
 set DEVCPP_DIR=C:\
 set EMBARCADERO_DIR=%APPDATA%
 set DESKTOP_DIR=%USERPROFILE%\Desktop
@@ -100,19 +111,16 @@ for %%D in (%DLLS%) do (
 )
 
 
-:: Deleting the downloaded files
-for /l %%i in (0, 1, 7) do (
-    set URL=!DOWNLOAD_URLS[%%i]!
-    for %%j in (!URL!) do (
-        set FILE_NAME=%%~nj%%~xj
-        set FILE_PATH=%DOWNLOAD_DIR%\!FILE_NAME!
+:: Delete the files by their names
+del "%TEMP_DIR%\DevCpp.zip"
+del "%TEMP_DIR%\7z.dll"
+del "%TEMP_DIR%\7z.exe"
+del "%TEMP_DIR%\Embarcadero.zip"
+del "%TEMP_DIR%\freeglut.dll"
+del "%TEMP_DIR%\glew32.dll"
+del "%TEMP_DIR%\glut32.dll"
 
-        :: Delete the downloaded file if it exists
-        if exist "!FILE_PATH!" (
-            del "!FILE_PATH!"
-        )
-    )
-)
+echo Files deleted if they existed in %TEMP_DIR%.
 
 echo.
 echo Installation progress: Completed.
