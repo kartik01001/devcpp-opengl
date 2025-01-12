@@ -114,8 +114,6 @@ del "%TEMP_DIR%\freeglut.dll"
 del "%TEMP_DIR%\glew32.dll"
 del "%TEMP_DIR%\glut32.dll"
 
-echo Files deleted if they existed in %TEMP_DIR%.
-
 echo.
 echo Installation progress: Completed.
 pause
